@@ -1,0 +1,19 @@
+1.pom.xml只需添加下面这个依赖
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+2.properties文件中添加MongoDB的配置信息
+spring.data.mongodb.uri=mongodb://localhost:27017/local
+# 设置连接池参数（可选）
+spring.data.mongodb.auto-index-creation=true
+spring.data.mongodb.auto-index-property=default
+
+3.编码访问
+Spring Data提供了 方法名查询（Derived Query Methods）机制，只要按照规则定义方法名，Spring Data就会自动实现，无需coding
+比如 repository里面的下面这两个方法，只要定义就好，不需要写实现方法。
+public interface UserRepository extends MongoRepository<User, String> {
+    User findByName(String name);
+
+    List<User> findByNameContaining(String name);
+}
